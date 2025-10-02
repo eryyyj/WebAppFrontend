@@ -58,7 +58,7 @@ const Navigation = () => {
           </button>
           <button
             onClick={handleLoginClick}
-            className="bg-green-500 text-white px-6 py-2.5 rounded-md hover:bg-green-600 transition-all duration-200 font-medium hover:scale-105 shadow-lg hover:shadow-xl"
+            className="bg-shrimp-orange text-white px-6 py-2.5 rounded-md hover:bg-orange-600 transition-all duration-200 font-medium hover:scale-105 shadow-lg hover:shadow-xl"
           >
             LOGIN
           </button>
@@ -113,7 +113,7 @@ const Navigation = () => {
                   handleLoginClick();
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition-colors duration-200 font-medium"
+                className="w-full bg-shrimp-orange text-white px-6 py-3 rounded-md hover:bg-orange-600 transition-colors duration-200 font-medium"
               >
                 LOGIN
               </button>
