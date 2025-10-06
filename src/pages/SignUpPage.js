@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-const SignUpPage = () => {
+const SignUpPage = ({ onLogin }) => {
   const [formData, setFormData] = useState({
     email: '',
     username: '',
@@ -26,7 +26,9 @@ const SignUpPage = () => {
         const fakeUsers = [
           { id: 1, username: 'admin', password: 'admin123', email: 'admin@shrimpsense.com', name: 'Admin User', role: 'admin' },
           { id: 2, username: 'user', password: 'user123', email: 'user@shrimpsense.com', name: 'Regular User', role: 'user' },
-          { id: 3, username: 'shrimp', password: 'sense123', email: 'shrimp@shrimpsense.com', name: 'Shrimp Farmer', role: 'user' }
+          { id: 3, username: 'shrimp', password: 'sense123', email: 'shrimp@shrimpsense.com', name: 'Shrimp Farmer', role: 'user' },
+          { id: 4, username: 'farmer1', password: 'farm123', email: 'farmer1@shrimpsense.com', name: 'Shrimp Farmer 1', role: 'user' },
+          { id: 5, username: 'testuser', password: 'test123', email: 'test@shrimpsense.com', name: 'Test User', role: 'user' }
         ];
         localStorage.setItem('shrimpSenseUsers', JSON.stringify(fakeUsers));
       }
@@ -133,7 +135,11 @@ const SignUpPage = () => {
       // Show success for form signup
       setSignupStatus('success');
       setTimeout(() => {
-        navigate('/login');
+        // Auto-login the new user and redirect to dashboard
+        if (onLogin) {
+          onLogin(newUser);
+        }
+        navigate('/');
       }, 2000);
 
     } catch (error) {

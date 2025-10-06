@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-const LoginPage = () => {
+const LoginPage = ({ onLogin }) => {
   const [formData, setFormData] = useState({
-    username: '',
+    loginInput: '', // Can be either email or username
     password: '',
     rememberMe: false
   });
@@ -49,7 +49,12 @@ const LoginPage = () => {
     try {
       // Get users from fake database
       const users = JSON.parse(localStorage.getItem('shrimpSenseUsers') || '[]');
-      const user = users.find(u => u.username === formData.username && u.password === formData.password);
+
+      // Check if loginInput matches either username or email
+      const user = users.find(u =>
+        (u.username === formData.loginInput || u.email === formData.loginInput) &&
+        u.password === formData.password
+      );
 
       if (user) {
         // User found in DB
@@ -58,6 +63,10 @@ const LoginPage = () => {
 
         // Show success message briefly then redirect
         setTimeout(() => {
+          // Call the onLogin prop if provided (for integration with App.js)
+          if (onLogin) {
+            onLogin(user);
+          }
           navigate('/');
         }, 2000);
       } else {
@@ -191,14 +200,14 @@ const LoginPage = () => {
             </div>
             <input
               type="text"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
+              name="loginInput"
+              placeholder="Email or Username"
+              value={formData.loginInput}
               onChange={handleInputChange}
-              onFocus={() => setFocusedField('username')}
+              onFocus={() => setFocusedField('loginInput')}
               onBlur={() => setFocusedField('')}
               className={`w-full pl-10 pr-4 py-3 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 ${
-                focusedField === 'username'
+                focusedField === 'loginInput'
                   ? 'border-blue-500 bg-blue-50'
                   : 'border-gray-300 hover:border-gray-400'
               }`}
