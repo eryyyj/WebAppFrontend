@@ -6,6 +6,7 @@ import FeaturesSection from './components/FeaturesSection';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import Dashboard from './pages/Dashboard';
+import ResultsPage from './pages/ResultsPage';
 import DashboardResults from './pages/DashboardResults';
 import DashboardHistory from './pages/DashboardHistory';
 import DashboardSettings from './pages/DashboardSettings';
@@ -71,6 +72,13 @@ function App() {
           <Route path="/results" element={
             isAuthenticated ? (
               <DashboardResults />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          } />
+          <Route path="/results-page" element={
+            isAuthenticated ? (
+              <ResultsPage />
             ) : (
               <Navigate to="/login" replace />
             )

@@ -65,7 +65,7 @@ export default function Dashboard() {
 
     const result = generateMockResult(file);
     saveResultToStorage(result);
-    navigate(`/results?id=${result.id}`);
+    navigate(`/results-page?id=${result.id}`);
   };
 
   // Different styling based on selected style
@@ -118,28 +118,28 @@ export default function Dashboard() {
     <div className={getContainerClasses()}>
       {/* Navigation Bar for Simplistic Mode */}
       {dashboardStyle === 'simplistic' && (
-        <nav className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 shadow-lg">
+        <nav className="bg-gradient-to-b from-[#0a2f1f] to-[#2d8a6b] backdrop-blur-sm text-white p-4 shadow-lg">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center space-x-8">
               <h2 className="text-2xl font-bold">SHRIMPSENSE</h2>
               <div className="hidden md:flex space-x-6">
                 <button
                   onClick={() => navigate('/')}
-                  className="flex items-center space-x-2 hover:text-blue-200 transition-colors"
+                  className="flex items-center space-x-2 hover:text-shrimp-orange transition-colors"
                 >
                   <span>🏠</span>
                   <span>Home</span>
                 </button>
                 <button
                   onClick={() => navigate('/results')}
-                  className="flex items-center space-x-2 hover:text-blue-200 transition-colors"
+                  className="flex items-center space-x-2 hover:text-shrimp-orange transition-colors"
                 >
                   <span>📊</span>
                   <span>Results</span>
                 </button>
                 <button
                   onClick={() => navigate('/dashboard/history')}
-                  className="flex items-center space-x-2 hover:text-blue-200 transition-colors"
+                  className="flex items-center space-x-2 hover:text-shrimp-orange transition-colors"
                 >
                   <span>📈</span>
                   <span>History</span>
@@ -155,7 +155,7 @@ export default function Dashboard() {
               </button>
               <button
                 onClick={handleLogout}
-                className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                className="bg-shrimp-orange text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
               >
                 Logout
               </button>
@@ -220,7 +220,7 @@ export default function Dashboard() {
               🦐 ShrimpSense
             </span>
             <span className={`block ${
-              dashboardStyle === 'modern' ? 'text-shrimp-orange animate-pulse' : 'text-blue-600'
+              dashboardStyle === 'modern' ? 'text-shrimp-orange animate-pulse' : 'text-green-600'
             }`}>
               Ready to Start?
             </span>
@@ -231,9 +231,9 @@ export default function Dashboard() {
           }`}>
             Upload an image of shrimp fry to get
             <span className={`font-semibold ${
-              dashboardStyle === 'modern' ? 'text-shrimp-orange' : 'text-blue-600'
+              dashboardStyle === 'modern' ? 'text-shrimp-orange' : 'text-[#2d8a6b]'
             }`}>
-               intelligent analysis
+              {" "}intelligent analysis
             </span> and
             <span className="font-semibold text-gray-800"> expert recommendations</span>
           </p>
@@ -245,7 +245,7 @@ export default function Dashboard() {
             onClick={onPick}
             className={`group relative inline-flex items-center gap-4 font-bold text-xl px-12 py-6 rounded-full shadow-2xl transition-all duration-500 transform overflow-hidden ${
               dashboardStyle === 'simplistic'
-                ? 'bg-blue-600 hover:bg-blue-700 text-white hover:scale-105'
+                ? 'bg-shrimp-orange hover:bg-orange-600 text-white hover:scale-105'
                 : 'bg-shrimp-orange hover:bg-orange-600 text-white hover:scale-110 hover:shadow-shrimp-orange/50'
             }`}
             aria-label="Upload shrimp image for analysis"

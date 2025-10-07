@@ -58,8 +58,8 @@ export default function DashboardHistory() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#0a2f1f] via-[#2d8a6b] to-[#3cb371] p-6">
         <div className="text-center text-white">
-          <p className="mb-4 text-xl">No history yet. Upload an image to create your first analysis.</p>
-          <button onClick={() => navigate("/dashboard")} className="px-6 py-3 bg-shrimp-orange text-white rounded-lg hover:bg-orange-600 transition-colors">
+          <p className="mb-4 text-xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">No history yet. Upload an image to create your first analysis.</p>
+          <button onClick={() => navigate("/dashboard")} className="px-6 py-3 bg-shrimp-orange text-white rounded-lg hover:bg-orange-600 transition-colors font-semibold shadow-lg">
             Go to Dashboard
           </button>
         </div>
@@ -77,7 +77,7 @@ export default function DashboardHistory() {
           >
             ← Back to Dashboard
           </button>
-          <h2 className="text-3xl font-bold text-white">Analysis History</h2>
+          <h2 className="text-3xl font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Analysis History</h2>
         </div>
 
         <div className="space-y-4">
@@ -94,9 +94,9 @@ export default function DashboardHistory() {
                   aria-expanded={!!item._open}
                 >
                   <div>
-                    <div className="text-white/70 text-sm">{dateStr}</div>
-                    <div className="text-white font-semibold">{timeStr}</div>
-                    <div className="text-shrimp-orange font-medium">{item.totalPL.toLocaleString()} shrimp counted</div>
+                    <div className="text-white/90 text-sm font-medium drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{dateStr}</div>
+                    <div className="text-white font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{timeStr}</div>
+                    <div className="text-shrimp-orange font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{item.totalPL.toLocaleString()} shrimp counted</div>
                   </div>
                   <div className="text-white/50 text-2xl">
                     {item._open ? "−" : "+"}
@@ -105,25 +105,67 @@ export default function DashboardHistory() {
 
                 {item._open && (
                   <div className="px-6 pb-6">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                      <div className="bg-white/5 rounded-lg p-4 text-center">
-                        <div className="text-white/70 text-sm">Total Count</div>
-                        <div className="text-2xl font-bold text-shrimp-orange">{item.totalPL.toLocaleString()}</div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                      {/* Image Container */}
+                      <div className="bg-white/5 rounded-lg p-4">
+                        <div className="aspect-video bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center relative">
+                          <img
+                            src="/shrimp-logo.gif"
+                            alt="Processed analysis result"
+                            className="max-w-full max-h-full object-contain rounded-lg"
+                          />
+                          <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded text-xs font-medium drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                            1020 x 235
+                          </div>
+                        </div>
+                        <div className="mt-2 text-center">
+                          <p className="text-white/80 text-sm font-medium drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                            This container will display the processed image (It automatically scales on the size of the output picture).
+                          </p>
+                        </div>
                       </div>
-                      <div className="bg-white/5 rounded-lg p-4 text-center">
-                        <div className="text-white/70 text-sm">Biomass</div>
-                        <div className="text-2xl font-bold text-shrimp-orange">{item.biomass}g</div>
-                      </div>
-                      <div className="bg-white/5 rounded-lg p-4 text-center">
-                        <div className="text-white/70 text-sm">Feed Rec.</div>
-                        <div className="text-2xl font-bold text-shrimp-orange">{item.feedRecommendation}g</div>
+
+                      {/* Analysis Metrics */}
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-1 gap-3">
+                          <div className="bg-white/5 rounded-lg p-4 text-center">
+                            <div className="text-white font-bold mb-3 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Total Count</div>
+                            <div className="text-2xl font-bold text-shrimp-orange drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{item.totalPL.toLocaleString()}</div>
+                            <div className="text-white font-bold mb-3 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">pieces</div>
+                          </div>
+                          <div className="bg-white/5 rounded-lg p-4 text-center">
+                            <div className="text-white font-bold mb-3 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Biomass</div>
+                            <div className="text-2xl font-bold text-shrimp-orange drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{item.biomass}g</div>
+                            <div className="text-white font-bold mb-3 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">total weight</div>
+                          </div>
+                          <div className="bg-white/5 rounded-lg p-4 text-center">
+                            <div className="text-white font-bold mb-3 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Feed Rec.</div>
+                            <div className="text-2xl font-bold text-shrimp-orange drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{item.feedRecommendation}g</div>
+                            <div className="text-white font-bold mb-3 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">daily recommendation</div>
+                          </div>
+                        </div>
+
+                        {/* Feed Breakdown */}
+                        <div className="bg-white/5 rounded-lg p-4">
+                          <h4 className="text-white font-bold mb-3 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Feed Breakdown</h4>
+                          <div className="flex items-center justify-between text-sm">
+                            <div className="flex items-center gap-2">
+                              <div className="w-3 h-3 bg-shrimp-orange rounded-full"></div>
+                              <span className="text-white font-bold mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Protein: {item.breakdown.protein}g</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-3 h-3 bg-white/60 rounded-full"></div>
+                              <span className="text-white font-bold mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Filler: {item.breakdown.filler}g</span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
                     <div className="flex gap-4">
                       <button
                         onClick={() => navigate(`/results?id=${item.id}`)}
-                        className="px-4 py-2 bg-shrimp-orange text-white rounded-lg hover:bg-orange-600 transition-colors"
+                        className="px-4 py-2 bg-shrimp-orange text-white rounded-lg hover:bg-orange-600 transition-colors font-semibold shadow-lg"
                       >
                         View Details
                       </button>
@@ -133,7 +175,7 @@ export default function DashboardHistory() {
                           localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
                           setItems(all);
                         }}
-                        className="px-4 py-2 border border-white/30 text-white rounded-lg hover:bg-white/10 transition-colors"
+                        className="px-4 py-2 border border-white/30 text-white rounded-lg hover:bg-white/10 transition-colors font-semibold shadow-lg"
                       >
                         Delete
                       </button>

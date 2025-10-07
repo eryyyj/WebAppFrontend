@@ -129,15 +129,15 @@ export default function DashboardResults() {
                 <div className="flex items-center gap-3">
                   <span className="inline-block w-4 h-4 rounded-full bg-[#ff8a65]" />
                   <div>
-                    <div className="text-white font-semibold">Protein</div>
-                    <div className="text-shrimp-orange text-lg">{result.breakdown.protein}g</div>
+                    <div className="text-white font-bold">Protein</div>
+                    <div className="text-white font-bold">{result.breakdown.protein}g</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="inline-block w-4 h-4 rounded-full bg-[#0c6b63]" />
                   <div>
-                    <div className="text-white font-semibold">Filler</div>
-                    <div className="text-shrimp-orange text-lg">{result.breakdown.filler}g</div>
+                    <div className="text-white font-bold">Filler</div>
+                    <div className="text-white font-bold">{result.breakdown.filler}g</div>
                   </div>
                 </div>
               </div>

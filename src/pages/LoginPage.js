@@ -43,25 +43,27 @@ const LoginPage = ({ onLogin }) => {
     setIsLoading(true);
     setLoginStatus(null);
 
-    // Simulate API call delay
+    // Show loading with "Welcome Back!" text first
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     try {
       // Get users from fake database
       const users = JSON.parse(localStorage.getItem('shrimpSenseUsers') || '[]');
 
-      // Check if loginInput matches either username or email
+      // Check if loginInput matches either username or email (case-insensitive)
       const user = users.find(u =>
-        (u.username === formData.loginInput || u.email === formData.loginInput) &&
+        (u.username?.toLowerCase() === formData.loginInput.toLowerCase() ||
+         u.email?.toLowerCase() === formData.loginInput.toLowerCase()) &&
         u.password === formData.password
       );
 
       if (user) {
-        // User found in DB
+        // User authenticated and found in database - show only check mark
         setLoginStatus('success');
+        setIsLoading(false);
         localStorage.setItem('currentUser', JSON.stringify(user));
 
-        // Show success message briefly then redirect
+        // Redirect after showing success
         setTimeout(() => {
           // Call the onLogin prop if provided (for integration with App.js)
           if (onLogin) {
@@ -70,21 +72,21 @@ const LoginPage = ({ onLogin }) => {
           navigate('/');
         }, 2000);
       } else {
-        // User not in DB
+        // User not in DB - show error
         setLoginStatus('error');
+        setIsLoading(false);
 
-        // Show error message briefly then stay on login page
+        // Show error message briefly then reset
         setTimeout(() => {
           setLoginStatus(null);
-          setIsLoading(false);
         }, 3000);
       }
     } catch (error) {
       console.error('Login error:', error);
       setLoginStatus('error');
+      setIsLoading(false);
       setTimeout(() => {
         setLoginStatus(null);
-        setIsLoading(false);
       }, 3000);
     }
   };
@@ -134,14 +136,14 @@ const LoginPage = ({ onLogin }) => {
             )}
 
             {loginStatus === 'success' && (
-              <div className="space-y-4">
-                <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto animate-pulse">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <div className="flex flex-col items-center justify-center space-y-6">
+                <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center animate-pulse">
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <div className="space-y-2">
-                  <h2 className="text-2xl font-bold text-gray-800">Login Successful!</h2>
+                <div className="text-center">
+                  <h2 className="text-2xl font-bold text-gray-800 mb-2">Success Login</h2>
                   <p className="text-gray-600">Redirecting you to the dashboard...</p>
                 </div>
               </div>

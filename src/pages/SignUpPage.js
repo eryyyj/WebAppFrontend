@@ -96,23 +96,25 @@ const SignUpPage = ({ onLogin }) => {
     setIsLoading(true);
     setSignupStatus(null);
 
-    // Simulate API call delay
+    // Show loading first with "Creating Account" text
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     try {
       // Get existing users from fake database
       const users = JSON.parse(localStorage.getItem('shrimpSenseUsers') || '[]');
 
-      // Check if username or email already exists
+      // Check if username or email already exists (case-insensitive)
       const existingUser = users.find(u =>
-        u.username === formData.username || u.email === formData.email
+        u.username?.toLowerCase() === formData.username.toLowerCase() ||
+        u.email?.toLowerCase() === formData.email.toLowerCase()
       );
 
       if (existingUser) {
+        // User already exists - show error
         setSignupStatus('error');
+        setIsLoading(false);
         setTimeout(() => {
           setSignupStatus(null);
-          setIsLoading(false);
         }, 3000);
         return;
       }
@@ -132,8 +134,10 @@ const SignUpPage = ({ onLogin }) => {
       users.push(newUser);
       localStorage.setItem('shrimpSenseUsers', JSON.stringify(users));
 
-      // Show success for form signup
+      // Show only check mark for successful registration
       setSignupStatus('success');
+      setIsLoading(false);
+
       setTimeout(() => {
         // Auto-login the new user and redirect to dashboard
         if (onLogin) {
@@ -145,9 +149,9 @@ const SignUpPage = ({ onLogin }) => {
     } catch (error) {
       console.error('Signup error:', error);
       setSignupStatus('error');
+      setIsLoading(false);
       setTimeout(() => {
         setSignupStatus(null);
-        setIsLoading(false);
       }, 3000);
     }
   };
@@ -211,15 +215,15 @@ const SignUpPage = ({ onLogin }) => {
             )}
 
             {signupStatus === 'success' && (
-              <div className="space-y-4">
-                <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto animate-pulse">
-                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <div className="flex flex-col items-center justify-center space-y-6">
+                <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center animate-pulse">
+                  <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <div className="space-y-2">
-                  <h2 className="text-2xl font-bold text-gray-800">Account Created!</h2>
-                  <p className="text-gray-600">Welcome to Shrimp Sense! Redirecting to login...</p>
+                <div className="text-center">
+                  <h2 className="text-2xl font-bold text-gray-800 mb-2">Success Sign Up</h2>
+                  <p className="text-gray-600">Account created successfully! Redirecting to dashboard...</p>
                 </div>
               </div>
             )}
@@ -232,8 +236,8 @@ const SignUpPage = ({ onLogin }) => {
                   </svg>
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-2xl font-bold text-gray-800">Sign Up Failed</h2>
-                  <p className="text-gray-600">Username or email already exists. Please try different ones.</p>
+                  <h2 className="text-2xl font-bold text-gray-800">Registration Failed</h2>
+                  <p className="text-gray-600">Username or email already exists. Please choose different ones.</p>
                 </div>
               </div>
             )}
